@@ -4,6 +4,8 @@ $.ajax({
     success: function (res) {
         var html = template('postsTpl', res);
         $('#postsBox').html(html);
+        var page = template('pageTpl', res);
+        $('.pagination').html(page);
     }
 })
 
@@ -12,4 +14,42 @@ function dateFormat(date) {
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 }
 
-// template.defaults.imports.dateFormat = dateFormat;
+function changePage(pageNum) {
+    $.ajax({
+        type: 'get',
+        url: '/posts',
+        data: { page: pageNum },
+        success: function (res) {
+            var html = template('postsTpl', res);
+            $('#postsBox').html(html);
+            var page = template('pageTpl', res);
+            $('.pagination').html(page);
+        }
+    })
+}
+
+// 获取并渲染分类数据
+$.ajax({
+    type: 'get',
+    url: '/categories',
+    success: function (res) {
+        var html = template('categoryTpl', { data: res });
+        $('#categoryBox').html(html);
+    }
+})
+
+$('#filterForm').on('submit', function () {
+    var fd = $(this).serialize();
+    $.ajax({
+        type: 'get',
+        url: '/posts',
+        data: fd,
+        success: function (res) {
+            var html = template('postsTpl', res);
+            $('#postsBox').html(html);
+            var page = template('pageTpl', res);
+            $('.pagination').html(page);
+        }
+    });
+    return false;
+})
