@@ -24,14 +24,14 @@
       </ul>
     </nav>
     <div class="container-fluid">
-      <div class="page-title">
-        <h1>写文章</h1>
-      </div>
+      <!-- <div class="page-title">
+        <h1>修改文章</h1>
+      </div> -->
       <!-- 有错误信息时展示 -->
       <!-- <div class="alert alert-danger">
         <strong>错误！</strong>发生XXX错误
       </div> -->
-      <form class="row" id="addForm">
+      <!-- <form class="row" id="addForm">
         <div class="col-md-9">
           <div class="form-group">
             <label for="title">标题</label>
@@ -45,9 +45,9 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="feature">文章封面</label>
-            <!-- show when image chose -->
-            <img class="help-block thumbnail" style="display: none">
+            <label for="feature">文章封面</label> -->
+      <!-- show when image chose -->
+      <!-- <img class="help-block thumbnail" style="display: none">
             <input id="feature" class="form-control" type="file">
             <input type="hidden" name="thumbnail" id="thumbnail">
           </div>
@@ -72,7 +72,7 @@
             <button class="btn btn-primary" type="submit">保存</button>
           </div>
         </div>
-      </form>
+      </form> -->
     </div>
   </div>
 
@@ -116,11 +116,63 @@
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
-  <script src="../assets/js/post-add.js"></script>
+  <script src="../assets/js/post-edit.js"></script>
   <script type="text/html" id="categoryTpl">
     {{each data}}
-    <option value="{{$value._id}}">{{$value.title}}</option>
+    <option value="{{$value._id}}" {{category.category.title == $value.title ? 'selected' : ''}}>{{$value.title}}</option>
     {{/each}}
+  </script>
+  <script type="text/html" id="postsTpl">
+    <div class="page-title">
+        <h1>修改文章</h1>
+      </div>
+    <form class="row" id="addForm">
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="title">标题</label>
+            <input name="title" id="title" class="form-control input-lg" type="text" placeholder="文章标题" value="{{title}}">
+          </div>
+          <div class="form-group">
+            <label for="content">内容</label>
+            <textarea name="content" id="content" class="form-control input-lg" cols="30" rows="10"
+              placeholder="内容">{{content}}</textarea>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="feature">文章封面</label>
+            <!-- show when image chose -->
+            <img class="help-block thumbnail" style="display: none">
+            <input id="feature" class="form-control" type="file">
+            <input type="hidden" name="thumbnail" id="thumbnail">
+          </div>
+          <div class="form-group">
+            <label for="category">所属分类</label>
+            <select name="category" id="category" class="form-control" value="{{category.title}}">
+
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="created">发布时间</label>
+            <input name="createAt" id="created" class="form-control" type="date" value="{{createAt.split('T')[0]}}">
+          </div>
+          <div class="form-group">
+            <label for="status">状态</label>
+            <select name="state" id="status" class="form-control">
+              {{if state == 0}}
+              <option value="0" selected>草稿</option>
+              <option value="1">已发布</option>
+              {{else}}
+              <option value="0">草稿</option>
+              <option value="1" selected>已发布</option>
+              {{/if}}
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">保存</button>
+          </div>
+        </div>
+      </form>
   </script>
 </body>
 

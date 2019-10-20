@@ -13,3 +13,29 @@ $('#logo').on('change', function () {
         }
     })
 })
+
+$('#settingsForm').on('submit', function () {
+    $.ajax({
+        type: 'post',
+        url: '/settings',
+        data: $(this).serialize(),
+        success: function (res) {
+            location.reload();
+        }
+    })
+    return false;
+})
+
+$.ajax({
+    type: 'get',
+    url: '/settings',
+    success: function (res) {
+        if (res) {
+            $('#hiddenLogo').val(res.logo);
+            $('#preview').attr('src', res.logo);
+            $('input[name="title"]').val(res.title);
+            $('input[name="comment"]').prop('checked', res.comment);
+            $('input[name="review"]').prop('checked', res.review);
+        }
+    }
+})

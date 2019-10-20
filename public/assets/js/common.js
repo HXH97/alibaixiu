@@ -10,3 +10,13 @@ $('#logout').on('click', function () {
         })
     }
 })
+
+$.ajax({
+    type: 'get',
+    url: `/users/${userId}`,
+    success: function (res) {
+        $('.profile img.avatar').attr('src', res.avatar);
+        $('.profile h3.name').text(res.nickName);
+        $('.profile').css('visibility', 'visible');
+    }
+})

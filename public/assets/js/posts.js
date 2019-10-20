@@ -53,3 +53,8 @@ $('#filterForm').on('submit', function () {
     });
     return false;
 })
+
+$('#postsBox').on('click', '.edit', function () {
+    var id = $(this).attr('data-id');
+    location.href = 'post-edit.html?id=' + id;
+})
